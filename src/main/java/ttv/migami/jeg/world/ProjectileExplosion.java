@@ -39,7 +39,7 @@ public class ProjectileExplosion extends Explosion
 
     public ProjectileExplosion(Level world, Entity exploder, @Nullable DamageSource source, @Nullable ExplosionDamageCalculator context, double x, double y, double z, float size, boolean causesFire, BlockInteraction mode)
     {
-        super(world, exploder, source, context, x, y, z, size, causesFire, mode);
+        super(world, exploder, source, context, x, y, z, size * 10.0f, causesFire, mode);
         this.world = world;
         this.x = x;
         this.y = y;
