@@ -2,6 +2,8 @@ name: Build Gradle project
 
 on:
   push:
+    branches:
+      - master  # Ajusta esto según la rama que desees monitorear
 
 jobs:
   build-gradle-project:
@@ -19,3 +21,15 @@ jobs:
         dependency-graph: generate-and-upload
     - name: Run build with Gradle Wrapper
       run: chmod +x ./gradlew && ./gradlew build
+    - name: Save JAR artifact
+      if: success()  # Este paso solo se ejecuta si la compilación es exitosa
+      run: mv build/libs/*.jar escape-guns.jar
+      # Ajusta 'my-artifact.jar' al nombre que desees para tu archivo .jar
+      # Este comando asume que tus archivos .jar se encuentran en 'build/libs/'.
+      # Si no es así, debes ajustar la ruta de acuerdo a tu configuración.
+    - name: Upload artifact
+      if: success()  # Este paso solo se ejecuta si la compilación es exitosa
+      uses: actions/upload-artifact@v2
+      with:
+        name: Escape Guns Mod Compiled  # Cambia esto al nombre que desees para tu artefacto
+        path: escape-guns.jar  # Cambia esto si has ajustado el nombre del archivo .jar anteriormente
